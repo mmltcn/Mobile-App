@@ -3,7 +3,6 @@ import 'package:widgetdemo/color_palette/main_color_palette.dart';
 import 'package:widgetdemo/home/circular_graph_balance_money.dart';
 import 'package:widgetdemo/home/container_listview.dart';
 import 'bottomtab.dart';
-import 'horizontal_calendar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,15 +38,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          
-          HorizontalCalendar(
-            selectedDate: selectedDate,
-            onDateSelected: (date) {
-              setState(() => selectedDate = date);
-              
-            },
-          ),
-
           Expanded(child: CircularGraphBalanceMoney(currentAmount: 900, totalAmount: 1000)),
           Expanded(child: ContainerListview(),),
           Expanded(child: Bottomtab()),

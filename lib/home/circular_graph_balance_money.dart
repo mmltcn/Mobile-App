@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-/// Circular progress indicator showing money balance
-/// Like a loading bar that shows how much budget is used/remaining
 class CircularGraphBalanceMoney extends StatelessWidget {
-  final double currentAmount;    // Current spending/balance
-  final double totalAmount;      // Total budget/goal
-  final String label;            // Text to show in center (e.g., "Balance", "Budget")
-  final double size;             // Size of the circle
-  final double strokeWidth;      // Thickness of the circle
-  final Color progressColor;     // Color of the filled part
-  final Color backgroundColor;   // Color of the unfilled part
+  final double currentAmount;    
+  final double totalAmount;      
+  final String label;            
+  final double size;             
+  final double strokeWidth;      
+  final Color progressColor;     
+  final Color backgroundColor;   
 
   const CircularGraphBalanceMoney({
     Key? key,
@@ -25,7 +23,7 @@ class CircularGraphBalanceMoney extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Calculate percentage (0.0 to 1.0)
+
     double progress = totalAmount > 0 ? (currentAmount / totalAmount).clamp(0.0, 1.0) : 0.0;
     
     return SizedBox(
@@ -34,7 +32,7 @@ class CircularGraphBalanceMoney extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Custom painter for the circular progress
+          
           CustomPaint(
             size: Size(size, size),
             painter: CircularProgressPainter(
@@ -44,8 +42,6 @@ class CircularGraphBalanceMoney extends StatelessWidget {
               backgroundColor: backgroundColor,
             ),
           ),
-          
-          // Center text
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -68,15 +64,8 @@ class CircularGraphBalanceMoney extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  SizedBox(
-                    child: TextButton(
-                      onPressed: (){}, 
-                      child: Icon(Icons.edit,size: 20.0)),
-                  ),
                 ]
               ),
-              
-              
               Text(
                 'of ₱${totalAmount.toStringAsFixed(2)}',
                 style: TextStyle(
@@ -101,7 +90,6 @@ class CircularGraphBalanceMoney extends StatelessWidget {
   }
 }
 
-/// Custom painter to draw the circular progress
 class CircularProgressPainter extends CustomPainter {
   final double progress;
   final double strokeWidth;
@@ -120,7 +108,7 @@ class CircularProgressPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = (size.width - strokeWidth) / 2;
     
-    // Draw background circle (gray unfilled part)
+    
     final backgroundPaint = Paint()
       ..color = backgroundColor
       ..style = PaintingStyle.stroke
@@ -129,19 +117,19 @@ class CircularProgressPainter extends CustomPainter {
     
     canvas.drawCircle(center, radius, backgroundPaint);
     
-    // Draw progress arc (colored filled part)
+    
     final progressPaint = Paint()
       ..color = Colors.green.shade400
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
     
-    // Start from top (-90 degrees) and sweep clockwise
+    
     final sweepAngle = 2 * math.pi * progress;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
-      -math.pi / 2,  // Start from top
-      sweepAngle,    // How much to fill
+      -math.pi / 2,  
+      sweepAngle,    
       false,
       progressPaint,
     );
